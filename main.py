@@ -1,7 +1,8 @@
-from src.masks import card_numbers_encryption
-from src.masks import get_hide
+import src.widget
 
 if __name__ == "__main__":
     def main():
-        card_numbers_encryption()
-        get_hide()
+        src.widget.card_or_account()
+
+        # card_numbers_encryption()
+        # get_hide()
