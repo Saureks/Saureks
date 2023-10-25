@@ -1,13 +1,13 @@
-import masks
-import re
+import src.masks
 
 
 def card_or_account():
     info = input("Введите данные карты или счета: ").lower()
-    lists = (re.findall(r"[\w']+", info))
-    if lists == "cчет":
+    num = info.find("счет")
+    print(num)
+    if num == 0:
         cards = info
-        return masks.get_hide(cards)
+        return src.masks.get_hide(cards)
     else:
         card = info
-        return masks.card_numbers_encryption(card)
+        return src.masks.card_numbers_encryption(card)
