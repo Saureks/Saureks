@@ -1,7 +1,7 @@
 import src.masks
 
 
-def card_or_account():
+def card_or_account(info: [str])-> None:
     info = input("Введите данные карты или счета: ").lower()
     num = info.find("счет")
     print(num)
@@ -11,3 +11,8 @@ def card_or_account():
     else:
         card = info
         return src.masks.card_numbers_encryption(card)
+
+
+card_or_account()
+
+def data_num():
