@@ -17,4 +17,13 @@ def card_or_account(word: str) -> str:
         return name + " " + masked_card
 
 
+def get_data(data: str) -> str:
+    """
+    принимает на вход строку,
+    вида "2018-07-11T02:26:18.671407" и
+    возвращает строку с датой в виде "11.07.2018"
 
+    """
+    data_list = re.split("T|-", data)
+    data_form = data_list[-2] + "." + data_list[-3] + "." + data_list[-4]
+    return data_form
