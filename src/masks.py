@@ -1,6 +1,6 @@
 def card_numbers_encryption(number_card: str) -> str:
     """принимает на вход номер карты и возвращает ее маску"""
-    mask_card = number_card[0:4] + " " + number_card[3:6] + "** ****" + number_card[-4:]
+    mask_card = number_card[0:4] + " " + number_card[4:6] + "** ****" + " " + number_card[-4:]
     return mask_card
 
 
