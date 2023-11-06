@@ -1,7 +1,11 @@
-from typing import Generator
+import pytest
 
-transactions = (
-    [
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+
+@pytest.fixture
+def new_transactions():
+    return [
         {
             "id": 939719570,
             "state": "EXECUTED",
@@ -78,54 +82,27 @@ transactions = (
             "to": "Счет 14211924144426031657"
         }
     ]
-)
 
 
-def filter_by_currency(transactions: list[dict[str, any]], corrency: str) -> Generator:
-    """
-    Функция принимает список словарей, и возвращает итератор который выдает по очереди операции
-    :param transactions: list[dict]
-    :param corrency: str
-    :return: dict
-    """
-    for transaction in transactions:
-        if transaction["operationAmount"]["currency"]["name"] == corrency:
-            yield transaction
+@pytest.mark.parametrize("n, expected_result", [("USD", 142264268), ("руб.", 594226727)])
+def test_filter_by_currency(new_transactions, n, expected_result):
+    usd_transactions = filter_by_currency(new_transactions, n)
+    for _ in range(2):
+        num = next(usd_transactions)["id"]
+    assert num == expected_result
 
 
-usd_transactions = filter_by_currency(transactions, "USD")
-
-for _ in range(2):
-    print(next(usd_transactions)["id"])
-
-
-def transaction_descriptions(transactions: list[dict]) -> Generator:
-    """
-    генератор, который принимает список словарей и возвращает описание каждой операции по очереди
-    :param transactions: list
-    :return: dict
-    """
-    for descriptions in transactions:
-        yield descriptions["description"]
+@pytest.mark.parametrize("expected_result", ["Перевод организации"])
+def test_filter_by_currency(new_transactions, expected_result):
+    descriptions = transaction_descriptions(new_transactions)
+    for _ in range(5):
+        operac = next(descriptions)
+    assert operac == expected_result
 
 
-descriptions = transaction_descriptions(transactions)
-
-for _ in range(5):
-    print(next(descriptions))
-
-
-def card_number_generator(start: int, finish: int) -> Generator:
-    """
-    должен генерировать номера карт в формате "XXXX XXXX XXXX XXXX",
-    где X — цифра. Должны быть сгенерированы номера карт в заданном диапазоне.
-    :return dict
-    """
-    for i in range(start, finish + 1):
-        card_numbers = str(i).zfill(16)
-        card_numbers = ' '.join(card_numbers[i:i + 4] for i in range(0, len(card_numbers), 4))
-        yield card_numbers
-
-
-for card_number in card_number_generator(1, 5):
-    print(card_number)
+@pytest.mark.parametrize("start, stop, expected_result", [(1, 5, ["0000 0000 0000 0001", "0000 0000 0000 0002",
+                                                                  "0000 0000 0000 0003", "0000 0000 0000 0004",
+                                                                  "0000 0000 0000 0005"])])
+def test_card_number_generator(expected_result, start, stop):
+    data = list(card_number_generator(start, stop))
+    assert data == expected_result
