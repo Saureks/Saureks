@@ -88,16 +88,16 @@ def new_transactions():
 def test_filter_by_currency(new_transactions, volute, expected_result):
     usd_transactions = filter_by_currency(new_transactions, volute)
     for _ in range(2):
-        num = next(usd_transactions)["id"]
-    assert num == expected_result
+        namber = next(usd_transactions)["id"]
+    assert namber == expected_result
 
 
 @pytest.mark.parametrize("expected_result", ["Перевод организации"])
 def test_filter_by_currency(new_transactions, expected_result):
     descriptions = transaction_descriptions(new_transactions)
     for _ in range(5):
-        operas = next(descriptions)
-    assert operas == expected_result
+        operation = next(descriptions)
+    assert operation == expected_result
 
 
 @pytest.mark.parametrize("start, stop, expected_result", [(1, 5, ["0000 0000 0000 0001", "0000 0000 0000 0002",
