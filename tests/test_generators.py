@@ -96,8 +96,8 @@ def test_filter_by_currency(new_transactions, volute, expected_result):
 def test_filter_by_currency(new_transactions, expected_result):
     descriptions = transaction_descriptions(new_transactions)
     for _ in range(5):
-        operac = next(descriptions)
-    assert operac == expected_result
+        operas = next(descriptions)
+    assert operas == expected_result
 
 
 @pytest.mark.parametrize("start, stop, expected_result", [(1, 5, ["0000 0000 0000 0001", "0000 0000 0000 0002",
