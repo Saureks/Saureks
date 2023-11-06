@@ -84,9 +84,9 @@ def new_transactions():
     ]
 
 
-@pytest.mark.parametrize("n, expected_result", [("USD", 142264268), ("руб.", 594226727)])
-def test_filter_by_currency(new_transactions, n, expected_result):
-    usd_transactions = filter_by_currency(new_transactions, n)
+@pytest.mark.parametrize("volute, expected_result", [("USD", 142264268), ("руб.", 594226727)])
+def test_filter_by_currency(new_transactions, volute, expected_result):
+    usd_transactions = filter_by_currency(new_transactions, volute)
     for _ in range(2):
         num = next(usd_transactions)["id"]
     assert num == expected_result
