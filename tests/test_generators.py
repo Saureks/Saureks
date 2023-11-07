@@ -93,7 +93,7 @@ def test_filter_by_currency(new_transactions, volute, expected_result):
 
 
 @pytest.mark.parametrize("expected_result", ["Перевод организации"])
-def test_filter_by_currency(new_transactions, expected_result):
+def test_transaction_descriptions(new_transactions, expected_result):
     descriptions = transaction_descriptions(new_transactions)
     for _ in range(5):
         operation = next(descriptions)

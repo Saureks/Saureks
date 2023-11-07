@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Any, Generator
 
 transactions = (
     [
@@ -81,7 +81,7 @@ transactions = (
 )
 
 
-def filter_by_currency(transactions: list[dict[str, any]], corrency: str) -> Generator:
+def filter_by_currency(transactions: list[dict[str, Any]], corrency: str) -> Generator:
     """
     Функция принимает список словарей, и возвращает итератор который выдает по очереди операции
     :param transactions: list[dict]
