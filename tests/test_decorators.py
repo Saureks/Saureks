@@ -8,3 +8,4 @@ def add(x, y):
 
 def test_log_decorator_1():
     assert add(3, 5) == 8
+

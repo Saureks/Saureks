@@ -20,6 +20,7 @@ def log(filename: str = None) -> Callable:
 
     example_function(1, 2)
     """
+
     def decorator(func: Callable) -> Callable:
         log_file = None
         if filename:
