@@ -1,9 +1,9 @@
 import datetime
 import functools
-from typing import Callable
+from typing import Any, Callable, Optional
 
 
-def log(filename: str = None) -> Callable:
+def log(filename: Optional[str] = None) -> Callable:
     """
     Декоратор для логирования вызова функции и ее результатов.
 
@@ -20,43 +20,32 @@ def log(filename: str = None) -> Callable:
 
     example_function(1, 2)
     """
-    def decorator(func: Callable) -> Callable:
-        log_file = None
-        if filename:
-            log_file = open(filename, 'a')
 
+    def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+        def inner(*args: Any, **kwargs: Any) -> Any:
             current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             try:
                 result = func(*args, **kwargs)
-                message = f"{current_time} {func.__name__} ok\n"
-                if log_file:
-                    log_file.write(message)
-                else:
-                    print(message)
-                return result
+                log_message = f"{current_time} {func.__name__} ok\n"
             except Exception as e:
-                error_type = type(e).__name__
-                input_values = f"Inputs: {args}, {kwargs}\n"
-                error_message = f"{current_time} {func.__name__} error: {error_type}. {input_values}"
-                if log_file:
-                    log_file.write(error_message)
-                else:
-                    print(error_message)
-                raise
-            finally:
-                if log_file:
-                    log_file.close()
+                log_message = f"{current_time} {func.__name__} error: {type(e).__name__}. Inputs: {args}, {kwargs}\n"
+                result = None
+            if filename:
+                with open(filename, "a") as file:
+                    file.write(log_message)
+            else:
+                print(log_message)
+            return result
 
-        return wrapper
+        return inner
 
-    return decorator
+    return wrapper
 
 
-@log(filename="mylog.txt")
+@log()
 def my_function(x, y):
     return x + y
 
 
-my_function(1, 2)
+print(my_function(1, 2))
