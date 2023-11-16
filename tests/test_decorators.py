@@ -5,10 +5,11 @@ import pytest
 from src.decorators import log
 
 
-@pytest.mark.parametrize("arg_1, arg_2, expexted_result", [(1, 0, " foo error: ZeroDivisionError. Inputs: (1, 0), {}"),
-                                                           (1, 2, " foo ok")])
+@pytest.mark.parametrize(
+    "arg_1, arg_2, expexted_result", [(1, 0, " foo error: ZeroDivisionError. Inputs: (1, 0), {}"), (1, 2, " foo ok")]
+)
 def test_log_decorator_1(arg_1, arg_2, expexted_result):
-    filename = 'test.txt'
+    filename = "test.txt"
     if os.path.exists(filename):
         os.remove(filename)
 
