@@ -24,6 +24,6 @@ def get_data(data: str) -> str:
     возвращает строку с датой в виде "11.07.2018"
 
     """
-    data_list = re.split('T|-', data)
+    data_list = re.split("T|-", data)
     data_form = data_list[-2] + "." + data_list[-3] + "." + data_list[-4]
     return data_form

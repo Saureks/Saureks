@@ -41,11 +41,3 @@ def log(filename: Optional[str] = None) -> Callable:
         return inner
 
     return wrapper
-
-
-@log()
-def my_function(x, y):
-    return x + y
-
-
-print(my_function(1, 2))
