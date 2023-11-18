@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 def card_numbers_encryption(number_card: str) -> str:
     """принимает на вход номер карты и возвращает ее маску"""
     mask_card = number_card[0:4] + " " + number_card[4:6] + "** ****" + " " + number_card[-4:]
-    logger.info(f"Маска номера карты {mask_card}")
+    logger.info(f"Маска номера карты {mask_card} ")
     return mask_card
 
 
