@@ -42,5 +42,5 @@ def get_operations(operation: dict) -> float | str:
         logger.info("Транзакция выполнена в рублях")
         return float(operation["operationAmount"]["amount"])
     else:
-        logger.error("Транзакция выполнена не в рублях. Укажите транзакцию в рублях")
+        logger.error("Транзакция выполнена не в рублях. Укажите транзакцию в рублях ")
         raise ValueError("Транзация выполнена не в рублях. Укажите транзакцию в рублях")
